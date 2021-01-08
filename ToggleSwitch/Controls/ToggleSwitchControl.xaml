@@ -1,0 +1,66 @@
+﻿<UserControl x:Class="ToggleSwitch.Controls.ToggleSwitchControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ToggleSwitch.Controls"
+             mc:Ignorable="d" 
+             x:Name="this"
+             d:DesignHeight="450" d:DesignWidth="800">
+    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+        <TextBlock Text="{Binding Label,ElementName=this}"/>
+        <StackPanel Orientation="Horizontal" Margin="0,10">
+            <ToggleButton IsChecked="False" Checked="ToggleButton_Checked" Unchecked="ToggleButton_Unchecked">
+                <ToggleButton.Style>
+                    <Style TargetType="{x:Type ToggleButton}">
+                        <Setter Property="Margin" Value="0,0,10,0"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type ToggleButton}">
+                                    <Border x:Name="mBorder" CornerRadius="10" BorderBrush="Black" BorderThickness="1.3" Height="20" Width="44">
+                                        <Ellipse x:Name="mEllipse" Fill="Black" Width="10" Height="10" Margin="0,0,20,0"/>
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsChecked" Value="True">
+                                            <Setter Property="Background" Value="#0078D7" TargetName="mBorder"/>
+                                            <Setter Property="Fill" Value="White" TargetName="mEllipse"/>
+                                            <Setter Property="BorderThickness" Value="0" TargetName="mBorder"/>
+                                        </Trigger>
+                                        <Trigger Property="IsChecked" Value="False">
+                                            <Setter Property="Background" Value="Transparent" TargetName="mBorder"/>
+                                            <Setter Property="Fill" Value="Black" TargetName="mEllipse"/>
+                                            <Setter Property="BorderThickness" Value="1.3" TargetName="mBorder"/>
+                                        </Trigger>
+                                        
+                                        
+                                        <EventTrigger RoutedEvent="Checked">
+                                            <BeginStoryboard>
+                                                <Storyboard>
+                                                    <ThicknessAnimation Duration="0:0:0.3" To="20,0,0,0"
+                                                                        Storyboard.TargetProperty="Margin" 
+                                                                        Storyboard.TargetName="mEllipse"/>
+                                                </Storyboard>
+                                            </BeginStoryboard>
+                                        </EventTrigger>
+                                        <EventTrigger RoutedEvent="Unchecked">
+                                            <BeginStoryboard>
+                                                <Storyboard>
+                                                    <ThicknessAnimation Duration="0:0:0.3" To="0,0,20,0"
+                                                                        Storyboard.TargetProperty="Margin" 
+                                                                        Storyboard.TargetName="mEllipse"/>
+                                                </Storyboard>
+                                            </BeginStoryboard>
+                                        </EventTrigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </ToggleButton.Style>
+            </ToggleButton>
+            <TextBlock Text="{Binding State,ElementName=this}"/>
+        </StackPanel>
+        
+        
+    </StackPanel>
+</UserControl>
